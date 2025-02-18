@@ -1,0 +1,12 @@
+{
+  "name": "@devzeng/rcp_client",
+  "version": "0.1.0",
+  "description": "rcp adapter for HarmonyOS.",
+  "main": "Index.ets",
+  "author": "zengjing <hhtczengjing@gmail.com>",
+  "license": "MIT",
+  "keywords": ["rcp", "http", "network", "request"],
+  "homepage": "https://github.com/hhtczengjing/ohos_rcp",
+  "repository": "https://github.com/hhtczengjing/ohos_rcp.git",
+  "dependencies": {}
+}

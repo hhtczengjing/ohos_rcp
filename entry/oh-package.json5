@@ -5,6 +5,7 @@
   "main": "",
   "author": "",
   "license": "",
-  "dependencies": {}
+  "dependencies": {
+    "@devzeng/rcp_client": "file:../rcp_client"
+  }
 }
-
