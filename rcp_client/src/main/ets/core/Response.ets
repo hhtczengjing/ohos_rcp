@@ -1,11 +1,14 @@
 import { rcp } from "@kit.RemoteCommunicationKit";
+import { RcpRequestOptions } from "../RcpClient";
 
 export class Response {
   private _rawResponse: rcp.Response | undefined = undefined;
+  private _options: RcpRequestOptions | undefined = undefined;
   request: rcp.Request;
 
-  constructor(response: rcp.Response) {
+  constructor(response: rcp.Response, options?: RcpRequestOptions) {
     this._rawResponse = response;
+    this._options = options;
     this.request = response?.request;
   }
 
@@ -23,5 +26,13 @@ export class Response {
 
   public toJSON(): object | null {
     return this._rawResponse?.toJSON() as object | null;
+  }
+
+  public get options(): RcpRequestOptions | undefined {
+    return this._options;
+  }
+
+  public get response(): rcp.Response | undefined {
+    return this._rawResponse;
   }
 }

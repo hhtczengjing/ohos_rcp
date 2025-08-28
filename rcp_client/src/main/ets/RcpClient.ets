@@ -1,13 +1,37 @@
-import { Configuration } from "./core/Configuration";
-import { HTTPMethod } from "./core/HTTPMethod";
+import { HTTPHeaders } from "./core/HTTPHeaders";
 import { Interceptor } from "./core/Interceptor";
-import { Session } from "./core/Session";
+import { HTTPMethod } from "./core/Request";
+import { Session, SessionOptions } from "./core/Session";
+
+export interface RcpClientOptions {
+  /**
+   * 超时时间, 单位毫秒
+   */
+  timeout?: number;
+
+  /**
+   * 请求地址
+   */
+  baseURL?: string;
+}
+
+export interface RcpRequestOptions extends RcpClientOptions {
+  /**
+   * 请求头
+   */
+  headers?: HTTPHeaders;
+
+  /**
+   * 请求追踪标识符，针对单个请求有效，用于取消请求，如不指定会自动创建一个
+   */
+  traceId?: string;
+}
 
 export class RcpClient {
   private session: Session;
 
-  constructor(config?: Configuration) {
-    this.session = new Session(config);
+  constructor(options?: RcpClientOptions) {
+    this.session = new Session(options as SessionOptions);
   }
 
   /**
@@ -36,8 +60,8 @@ export class RcpClient {
    *
    * @returns 返回一个 Promise，该 Promise 解析为请求返回的数据
    */
-  get<R = object | null>(url: string, config?: Configuration): Promise<R> {
-    return this.session.request(url, HTTPMethod.GET, undefined, config);
+  get<R = object | null>(url: string, options?: RcpRequestOptions): Promise<R> {
+    return this.session.request(url, HTTPMethod.GET, undefined, options);
   }
 
   /**
@@ -49,8 +73,8 @@ export class RcpClient {
    *
    * @returns 返回一个 Promise，该 Promise 解析为请求返回的数据
    */
-  post<T = object | null, R = object | null>(url: string, data?: T, config?: Configuration): Promise<R> {
-    return this.session.request(url, HTTPMethod.POST, data, config);
+  post<T = object | null, R = object | null>(url: string, data?: T, options?: RcpRequestOptions): Promise<R> {
+    return this.session.request(url, HTTPMethod.POST, data, options);
   }
 
   /**
@@ -62,8 +86,8 @@ export class RcpClient {
    *
    * @returns 返回一个 Promise，该 Promise 解析为请求返回的数据
    */
-  delete<T = object | null, R = object | null>(url: string, data?: T, config?: Configuration): Promise<R> {
-    return this.session.request(url, HTTPMethod.DELETE, data, config);
+  delete<T = object | null, R = object | null>(url: string, data?: T, options?: RcpRequestOptions): Promise<R> {
+    return this.session.request(url, HTTPMethod.DELETE, data, options);
   }
 
   /**
@@ -75,8 +99,8 @@ export class RcpClient {
    *
    * @returns 返回一个 Promise，该 Promise 解析为请求返回的数据
    */
-  put<T = object | null, R = object | null>(url: string, data?: T, config?: Configuration): Promise<R> {
-    return this.session.request(url, HTTPMethod.PUT, data, config);
+  put<T = object | null, R = object | null>(url: string, data?: T, options?: RcpRequestOptions): Promise<R> {
+    return this.session.request(url, HTTPMethod.PUT, data, options);
   }
 
   /**
@@ -88,8 +112,8 @@ export class RcpClient {
    *
    * @returns 返回一个 Promise，该 Promise 解析为请求返回的数据
    */
-  patch<T = object | null, R = object | null>(url: string, data?: T, config?: Configuration): Promise<R> {
-    return this.session.request(url, HTTPMethod.PATCH, data, config);
+  patch<T = object | null, R = object | null>(url: string, data?: T, options?: RcpRequestOptions): Promise<R> {
+    return this.session.request(url, HTTPMethod.PATCH, data, options);
   }
 
   /**

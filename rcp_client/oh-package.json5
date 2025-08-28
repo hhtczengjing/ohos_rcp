@@ -1,6 +1,6 @@
 {
   "name": "@devzeng/rcp_client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "rcp adapter for HarmonyOS.",
   "main": "Index.ets",
   "author": "zengjing <hhtczengjing@gmail.com>",
