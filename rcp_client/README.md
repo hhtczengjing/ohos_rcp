@@ -27,10 +27,16 @@ client.addInterceptor(new InterceptorHandler());
 // 拦截器实现类
 export class InterceptorHandler implements Interceptor {
     doRequest(context: Request): Promise<Request> {
+        // 可通过 request.options 获取请求的自定义参数配置，如自定义请求头、是否需要加密等
+        // const options = request.options as RcpRequestOptions; 
+        // ...
         return Promise.resolve(context);
     }
 
     doResponse(context: Response): Promise<Response> {
+        // 可通过 request.options 获取请求的自定义参数配置，如是否需要解密等
+        // const options = request.options as RcpRequestOptions; 
+        // ...
         return Promise.resolve(context);
     }
 }
@@ -45,6 +51,7 @@ client.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
 }).catch((error: BusinessError) => {
     console.error(JSON.stringify(error));
 });
+
 // 发起POST请求
 client.post('https://jsonplaceholder.typicode.com/posts', { 
     'title': 'foo',
