@@ -80,7 +80,7 @@ struct Index {
             if (this.output) {
               Text(`${this.output}`)
                 .outputStyle()
-                .margin({ top: 10 })
+                .margin({ top: 10, bottom: 10 })
             }
 
             Blank()
@@ -89,6 +89,7 @@ struct Index {
           .justifyContent(FlexAlign.Start)
           .alignItems(HorizontalAlign.Start)
           .width('100%')
+          .height('100%')
         }
         .margin({ top: 20 })
         .width('100%')
@@ -99,7 +100,8 @@ struct Index {
   }
 
   private sendGetRequest() {
-    client.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
+    const params = { 'postId': 1 } as Record<string, string|number>;
+    client.get('https://jsonplaceholder.typicode.com/comments', params).then((response) => {
       console.log(JSON.stringify(response));
       this.output = JSON.stringify(response);
     }).catch((error: BusinessError) => {
@@ -109,11 +111,12 @@ struct Index {
   }
 
   private sendPostRequest() {
-    client.post('https://jsonplaceholder.typicode.com/posts', {
+    const data = {
       'title': 'foo',
       'body': 'bar',
       'userId': 1,
-    } as Record<string, string|number>).then((response) => {
+    } as Record<string, string|number>;
+    client.post('https://jsonplaceholder.typicode.com/posts', data).then((response) => {
       console.log(JSON.stringify(response));
       this.output = JSON.stringify(response);
     }).catch((error: BusinessError) => {
