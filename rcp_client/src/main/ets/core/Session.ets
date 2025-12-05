@@ -5,6 +5,7 @@ import { Interceptor, RequestInterceptor, ResponseInterceptor } from './Intercep
 import { RcpRequestOptions } from '../RcpClient';
 import { Contexts } from './Contexts';
 import { util } from '@kit.ArkTS';
+import { UrlHelper } from '../utils/UrlHelper';
 
 export interface SessionOptions {
   /**
@@ -83,8 +84,12 @@ export class Session {
         const uuid = util.generateRandomUUID(true);
         options.traceId = (new Date).getTime() + uuid.toLowerCase().replaceAll('-', '');
       }
+      let newUrl = url
+      if (method === HTTPMethod.GET && data) {
+        newUrl = UrlHelper.getUrl(url, data as object);
+      }
       const traceId = options.traceId;
-      const request = new rcp.Request(url, method, options.headers?.headers, data as object);
+      const request = new rcp.Request(newUrl, method, options.headers?.headers, data as object);
       this.requests.set(traceId, request);
       Contexts.shared().add(request.id, options);
       if (!request) {

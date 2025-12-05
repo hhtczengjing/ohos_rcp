@@ -56,12 +56,13 @@ export class RcpClient {
    * 使用 GET 方法发送 HTTP 请求
    *
    * @param url 请求的 URL
+   * @param data 请求的数据（可选）
    * @param config 请求的配置项（可选）
    *
    * @returns 返回一个 Promise，该 Promise 解析为请求返回的数据
    */
-  get<R = object | null>(url: string, options?: RcpRequestOptions): Promise<R> {
-    return this.session.request(url, HTTPMethod.GET, undefined, options);
+  get<T = object | null, R = object | null>(url: string, data?: T, options?: RcpRequestOptions): Promise<R> {
+    return this.session.request(url, HTTPMethod.GET, data, options);
   }
 
   /**
