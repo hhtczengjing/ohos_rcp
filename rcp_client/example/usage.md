@@ -26,17 +26,16 @@ export class InterceptorHandler implements Interceptor {
 
 ```javascript
 // 发起GET请求
-client.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
+const params = { 'postId': 1 } as Record<string, string|number>;
+client.get('https://jsonplaceholder.typicode.com/comments', params).then((response) => {
     console.log(JSON.stringify(response));
 }).catch((error: BusinessError) => {
     console.error(JSON.stringify(error));
 });
+
 // 发起POST请求
-client.post('https://jsonplaceholder.typicode.com/posts', { 
-    'title': 'foo',
-    'body': 'bar',
-    'userId': 1,
-} as Record<string, string|number>).then((response) => {
+const data = { 'title': 'foo', 'body': 'bar', 'userId': 1 } as Record<string, string|number>;
+client.post('https://jsonplaceholder.typicode.com/posts', data).then((response) => {
     console.log(JSON.stringify(response));
 }).catch((error: BusinessError) => {
     console.error(JSON.stringify(error));
